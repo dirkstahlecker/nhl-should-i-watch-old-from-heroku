@@ -12,7 +12,7 @@ class App extends Component {
 
   fetchCow = async () => {
     var absolute_path = __dirname;
-    var url = "http://localhost:5000" + `/api/cow`;
+    var url = "http://localhost:5000" + "/api/worthWatching/6"; //TODO
     console.log("fetching url " + url);
     const responseRaw = await fetch(url);
     const response = await responseRaw.json();
