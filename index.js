@@ -21,10 +21,12 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 // })
 
 // Serve our base route that returns a Hellow World cow
-app.get('/api/cow/', cors(), async (req, res, next) => {
-  let YOUR_TEAM_ID = 6;
+app.get('/api/worthWatching/:teamID', cors(), async (req, res, next) => {
+  let YOUR_TEAM_ID = req.params.teamID;
+  console.log(YOUR_TEAM_ID)
 
-  try {
+  try 
+  {
     url = "https://statsapi.web.nhl.com/api/v1/schedule?teamId=" + YOUR_TEAM_ID + "&date=2019-11-02";
     const response = await fetch(url);
 
@@ -81,7 +83,7 @@ app.get('/api/cow/', cors(), async (req, res, next) => {
     }
     else
     {
-      if (random.randint(0, 9) == 0)
+      if (Math.floor(Math.random() * Math.floor(10)) == 0)
       {
         worthWatching = true;
       }
@@ -94,11 +96,11 @@ app.get('/api/cow/', cors(), async (req, res, next) => {
     console.log("worth watching: " + worthWatching);
 
     res.json({ "worthWatching": worthWatching });
-    } 
-    catch (err)
-    {
-      next(err)
-    }
+  } 
+  catch (err)
+  {
+    next(err)
+  }
 })
 
 // Anything that doesn't match the above, send back the index.html file
