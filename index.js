@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 app.get('/api/cow/', cors(), async (req, res, next) => {
   try {
     const date = "2019-11-02";
-    url = "https://statsapi.web.nhl.com/api/v1/schedule?teamId=" + str(BRUINS_TEAM_ID) + "&date=" + date;
+    url = "https://statsapi.web.nhl.com/api/v1/schedule?teamId=6&date=2019-11-02";
     console.log(url);
     res.json({ moo })
   } catch (err) {
