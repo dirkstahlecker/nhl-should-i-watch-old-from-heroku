@@ -1,52 +1,42 @@
 import React, { Component } from 'react'
 import './App.css'
 
-class App extends Component {
-  state = {
-    cow: '',
-    text: ''
-  }
+require('es6-promise').polyfill();
+const fetch = require('isomorphic-fetch');
 
-  componentDidMount() {
-    this.fetchCow()
-  }
+class App extends Component {
+
+  // componentDidMount() {
+  //   this.fetchCow()
+  // }
 
   fetchCow = async () => {
-    const response = await fetch(`/api/cow`)
-    const initialCow = await response.json()
-    const cow = initialCow.moo
-    this.setState({ cow })
-  }
+    var absolute_path = __dirname;
+    var url = "http://localhost:5000" + `/api/cow`;
+    console.log("fetching url " + url);
+    const responseRaw = await fetch(url);
+    const response = await responseRaw.json();
 
-  customCow = async evt => {
-    evt.preventDefault()
-    const text = this.state.text
-    const response = await fetch(`/api/cow/${text}`)
-    const custom = await response.json()
-    const cow = custom.moo
-    this.setState({ cow, text: '' })
-  }
+    console.log(response.worthWatching == true);
 
-  handleChange = evt => {
-    this.setState({ [evt.target.name]: evt.target.value })
+    if (response.worthWatching == true)
+    {
+      document.getElementById("yes").style.display = "block";
+    }
+    else if (response.worthWatching == false)
+    {
+      document.getElementById("no").style.display = "block";
+    }
   }
 
   render() 
   {
     return (
       <div className="App">
-        <h3>Text Cow. Moo</h3>
-        <code>{this.state.cow}</code>
-        <form onSubmit={this.customCow}>
-          <label>Custom Cow Text:</label>
-          <input
-            type="text"
-            name="text"
-            value={this.state.text}
-            onChange={this.handleChange}
-          />
-          <button type="submit">Show me a talking cow!</button>
-        </form>
+        <button onClick={() => this.fetchCow()}>Make Request</button>
+
+        <div id="yes" style={{display: "none"}}>YES</div>
+        <div id="no" style={{display: "none"}}>NO</div>
       </div>
     )
   }
