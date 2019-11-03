@@ -15,7 +15,9 @@ class App extends Component
     const teamId = document.getElementById("teamId").value;
     const date = document.getElementById("date").value;
     var absolute_path = __dirname;
-    var url = "http:\/\/localhost:5000" + "/api/worthWatching/" + teamId + "/" + date; //TODO
+
+    const urlPrefix = "https:\/\/nhl-should-i-watch.herokuapp.com/"; //"http:\/\/localhost:5000"
+    var url = urlPrefix + "/api/worthWatching/" + teamId + "/" + date; //TODO
     console.log("fetching url " + url);
     const responseRaw = await fetch(url);
     const response = await responseRaw.json();
@@ -74,7 +76,9 @@ class App extends Component
 
         {
           this.state.worthWatching != null &&
-          <input type="text" value={this.state.worthWatching ? "YES" : "NO"}/>
+          <div>
+            {this.state.worthWatching ? "YES" : "NO"}
+          </div>
         }
       </div>
     )
