@@ -31,7 +31,8 @@ class App extends Component {
     this.setState({ [evt.target.name]: evt.target.value })
   }
 
-  render() {
+  render() 
+  {
     return (
       <div className="App">
         <h3>Text Cow. Moo</h3>
