@@ -5,7 +5,7 @@ import logo from './logo.svg';
 
 class App extends React.Component {
 
-  private getData(): any //TODO
+  private async getData(): Promise<any> //TODO
   {
     const response = await fetch('/api/hello');
     console.log(response);
