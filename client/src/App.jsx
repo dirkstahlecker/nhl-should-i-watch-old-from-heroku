@@ -4,16 +4,13 @@ import './App.css'
 require('es6-promise').polyfill();
 const fetch = require('isomorphic-fetch');
 
-class App extends Component {
-
-  // componentDidMount() {
-  //   this.fetchCow()
-  // }
-
-  fetchCow = async () => {
+class App extends Component
+{
+  fetchData = async () => {
     const teamId = document.getElementById("teamId").value;
+    const date = document.getElementById("date").value;
     var absolute_path = __dirname;
-    var url = "http://localhost:5000" + "/api/worthWatching/" + teamId; //TODO
+    var url = "http://localhost:5000" + "/api/worthWatching/" + teamId + "/" + date; //TODO
     console.log("fetching url " + url);
     const responseRaw = await fetch(url);
     const response = await responseRaw.json();
@@ -22,11 +19,11 @@ class App extends Component {
 
     if (response.worthWatching == true)
     {
-      document.getElementById("yes").style.display = "block";
+      document.getElementById("result").value = "YES";
     }
     else if (response.worthWatching == false)
     {
-      document.getElementById("no").style.display = "block";
+      document.getElementById("result").value = "NO";
     }
   }
 
@@ -67,10 +64,12 @@ class App extends Component {
           <option value="53">Arizona Coyotes</option>
           <option value="54">Vegas Golden Knights</option>
         </select>
-        <button onClick={() => this.fetchCow()}>Make Request</button>
 
-        <div id="yes" style={{display: "none"}}>YES</div>
-        <div id="no" style={{display: "none"}}>NO</div>
+        <label for="date">Test</label><input type="text" id="date"/>
+
+        <button onClick={this.fetchData}>Make Request</button>
+
+        <input type="text" id="result"/>
       </div>
     )
   }

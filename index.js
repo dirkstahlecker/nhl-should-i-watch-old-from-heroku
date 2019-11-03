@@ -20,14 +20,16 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 //   }
 // })
 
-// Serve our base route that returns a Hellow World cow
-app.get('/api/worthWatching/:teamID', cors(), async (req, res, next) => {
+app.get('/api/worthWatching/:teamID/:date', cors(), async (req, res, next) => {
   let YOUR_TEAM_ID = req.params.teamID;
   console.log(YOUR_TEAM_ID)
 
+  const date = req.params.date;
+  console.log(date);
+
   try 
   {
-    url = "https://statsapi.web.nhl.com/api/v1/schedule?teamId=" + YOUR_TEAM_ID + "&date=2019-11-02";
+    url = "https://statsapi.web.nhl.com/api/v1/schedule?teamId=" + YOUR_TEAM_ID + "&date=" + date;
     const response = await fetch(url);
 
     const gameDataRaw = await fetch(url);
