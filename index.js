@@ -61,8 +61,7 @@ app.get('/api/worthWatching/:teamID/:date', cors(), async (req, res, next) => {
     }
     else
     {
-      print("ERROR") //TODO
-      return
+      return res.json({ "error" : "Cannot locate team"})
     }
 
     console.log("home score: " + homeScore);
@@ -94,8 +93,6 @@ app.get('/api/worthWatching/:teamID/:date', cors(), async (req, res, next) => {
         worthWatching = false;
       }
     }
-
-    console.log("worth watching: " + worthWatching);
 
     res.json({ "worthWatching": worthWatching });
   } 

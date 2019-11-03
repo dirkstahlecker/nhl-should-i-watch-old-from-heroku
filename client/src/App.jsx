@@ -6,25 +6,28 @@ const fetch = require('isomorphic-fetch');
 
 class App extends Component
 {
+  state = {
+    error: null,
+    worthWatching: null,
+  }
+
   fetchData = async () => {
     const teamId = document.getElementById("teamId").value;
     const date = document.getElementById("date").value;
     var absolute_path = __dirname;
-    var url = "http://localhost:5000" + "/api/worthWatching/" + teamId + "/" + date; //TODO
+    var url = "http:\/\/localhost:5000" + "/api/worthWatching/" + teamId + "/" + date; //TODO
     console.log("fetching url " + url);
     const responseRaw = await fetch(url);
     const response = await responseRaw.json();
 
-    console.log(response.worthWatching == true);
+    if (response.error)
+    {
+      //TODO
+    }
 
-    if (response.worthWatching == true)
-    {
-      document.getElementById("result").value = "YES";
-    }
-    else if (response.worthWatching == false)
-    {
-      document.getElementById("result").value = "NO";
-    }
+    // document.getElementById("result").value = "YES";
+    this.setState({error: response.error, worthWatching: response.worthWatching});
+    
   }
 
   render() 
@@ -65,11 +68,14 @@ class App extends Component
           <option value="54">Vegas Golden Knights</option>
         </select>
 
-        <label for="date">Test</label><input type="text" id="date"/>
+        <label for="date">Date:</label><input type="text" id="date"/>
 
-        <button onClick={this.fetchData}>Make Request</button>
+        <button onClick={this.fetchData}>Should I Watch?</button>
 
-        <input type="text" id="result"/>
+        {
+          this.state.worthWatching != null &&
+          <input type="text" value={this.state.worthWatching ? "YES" : "NO"}/>
+        }
       </div>
     )
   }
