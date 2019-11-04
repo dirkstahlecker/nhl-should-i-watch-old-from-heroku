@@ -70,7 +70,7 @@ class App extends Component
           <option value="54">Vegas Golden Knights</option>
         </select>
 
-        <label for="date">Date:</label><input type="text" id="date"/>
+        <label for="date">Date:</label><input type="date" id="date"/>
 
         <button onClick={this.fetchData}>Should I Watch?</button>
 
