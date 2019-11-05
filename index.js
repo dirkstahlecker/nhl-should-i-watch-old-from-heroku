@@ -20,14 +20,48 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 //   }
 // })
 
-app.get('/api/worthWatching/:teamID/:date', cors(), async (req, res, next) => {
+app.get('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, next) => {
   let YOUR_TEAM_ID = req.params.teamID;
-  console.log(YOUR_TEAM_ID)
-
   const date = req.params.date;
-  console.log(date);
-
   let error = null;
+  const metric = req.params.metric;
+
+  //win, lose by 1, 10% random
+  function worthIt1(yourTeamScore, opponentScore)
+  {
+    let worthWatching = false;
+
+    if (yourTeamScore > opponentScore)
+    {
+      worthWatching = true;
+    }
+    else if (opponentScore - yourTeamScore <= 1)
+    {
+      worthWatching = true;
+    }
+
+    if (worthWatching)
+    {
+      worthWatching = true;
+    }
+    else
+    {
+      if (Math.floor(Math.random() * Math.floor(10)) == 0)
+      {
+        worthWatching = true;
+      }
+      else
+      {
+        worthWatching = false;
+      }
+    }
+    return worthWatching;
+  }
+
+  function worthIt2(yourTeamScore, opponentScore)
+  {
+    return false;
+  }
 
   try 
   {
@@ -68,32 +102,14 @@ app.get('/api/worthWatching/:teamID/:date', cors(), async (req, res, next) => {
 
     console.log("home score: " + homeScore);
     console.log("away score: " + opponentScore);
+    console.log("metric to use: " + metric)
 
-    let worthWatching = false;
-
-    if (yourTeamScore > opponentScore)
+    let worthWatching;
+    switch (metric)
     {
-      worthWatching = true;
-    }
-    else if (opponentScore - yourTeamScore <= 1)
-    {
-      worthWatching = true;
-    }
-
-    if (worthWatching)
-    {
-      worthWatching = true;
-    }
-    else
-    {
-      if (Math.floor(Math.random() * Math.floor(10)) == 0)
-      {
-        worthWatching = true;
-      }
-      else
-      {
-        worthWatching = false;
-      }
+      case "1":
+        worthWatching = worthIt1(homeScore, opponentScore);
+        break;
     }
 
     res.json({"worthWatching": worthWatching, "error": error});

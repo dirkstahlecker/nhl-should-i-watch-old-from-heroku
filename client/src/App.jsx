@@ -6,7 +6,7 @@ const fetch = require('isomorphic-fetch');
 
 class App extends Component
 {
-  LOCAL = false;
+  LOCAL = true;
 
   //team IDs
   DEVILS = 1;
@@ -61,6 +61,8 @@ class App extends Component
     }
 
     this.initialSelectedTeam = this.BRUINS //TODO
+
+    //https://ip-api.com/docs/api:json#test
 
     switch (locationData.region)
     {
@@ -243,8 +245,10 @@ class App extends Component
     
     var absolute_path = __dirname;
 
+    const metric = 1;
+
     const urlPrefix = this.LOCAL ? "http:\//localhost:5000" : "https:\//nhl-should-i-watch.herokuapp.com"; //TODO:
-    var url = urlPrefix + "/api/worthWatching/" + teamId + "/" + dateStr;
+    var url = urlPrefix + "/api/worthWatching/" + teamId + "/" + dateStr + "/" + metric;
     console.log("fetching url " + url);
     const responseRaw = await fetch(url);
     const response = await responseRaw.json();
