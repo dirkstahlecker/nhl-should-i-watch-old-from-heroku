@@ -29,7 +29,7 @@ class App extends Component
     
     var absolute_path = __dirname;
 
-    const urlPrefix = this.LOCAL ? "http:\//localhost:5000" : "https:\//nhl-should-i-watch.herokuapp.com/"; //TODO:
+    const urlPrefix = this.LOCAL ? "http:\//localhost:5000" : "https:\//nhl-should-i-watch.herokuapp.com"; //TODO:
     var url = urlPrefix + "/api/worthWatching/" + teamId + "/" + dateStr;
     console.log("fetching url " + url);
     const responseRaw = await fetch(url);
