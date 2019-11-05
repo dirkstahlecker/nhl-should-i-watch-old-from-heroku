@@ -32,10 +32,12 @@ class App extends Component
   OILERS = 22;
   CANUCKS = 23;
   DUCKS = 24;
+  STARS =25;
   KINGS = 26;
   SHARKS = 28;
   BLUEJACKETS = 29;
   WILD = 30;
+  JETS = 52;
   COYOTES = 53;
   KNIGHTS = 54;
 
@@ -62,15 +64,162 @@ class App extends Component
 
     switch (locationData.region)
     {
+      case "AL":
+        this.setState({initialSelectedTeam: this.PREDATORS});
+        return;
+      case "AK":
+        this.setState({initialSelectedTeam: this.CANUCKS});
+        return;
+      case "AZ":
+        this.setState({initialSelectedTeam: this.COYOTES});
+        return;
+      case "AR":
+        this.setState({initialSelectedTeam: this.STARS});
+        return;
+      case "CA":
+        //TODO
+        this.setState({initialSelectedTeam: this.PREDATORS});
+        return;
+      case "CO":
+        this.setState({initialSelectedTeam: this.AVALANCHE});
+        return;
+      case "CT":
+        this.setState({initialSelectedTeam: this.BRUINS});
+        return;
+      case "DE":
+        this.setState({initialSelectedTeam: this.FLYERS});
+        return;
+      case "FL":
+        this.setState({initialSelectedTeam: this.PANTHERS});
+        //TODO
+        return;
+      case "GA":
+        this.setState({initialSelectedTeam: this.LIGHTNING});
+        return;
+      case "HI":
+        this.setState({initialSelectedTeam: this.SHARKS});
+        return;
+      case "ID":
+        this.setState({initialSelectedTeam: this.AVALANCHE});
+        break;
+      case "IL":
+        this.setState({initialSelectedTeam: this.BLACKHAWKS});
+        return;
+      case "IN":
+        this.setState({initialSelectedTeam: this.BLACKHAWKS});
+        return;
+      case "IA":
+        this.setState({initialSelectedTeam: this.WILD});
+        return;
+      case "KS":
+        this.setState({initialSelectedTeam: this.AVALANCHE});
+        return;
+      case "KY":
+        this.setState({initialSelectedTeam: this.PREDATORS});
+        return;
+      case "LA":
+        this.setState({initialSelectedTeam: this.STARS});
+        return;
+      case "ME":
+        this.setState({initialSelectedTeam: this.BRUINS});
+        return;
+      case "MD":
+        this.setState({initialSelectedTeam: this.CAPITALS});
+        return;
       case "MA":
         this.setState({initialSelectedTeam: this.BRUINS});
-        break;
+        return;
+      case "MI":
+        this.setState({initialSelectedTeam: this.REDWINGS});
+        return;
+      case "MN":
+        this.setState({initialSelectedTeam: this.WILD});
+        return;
+      case "MS":
+        this.setState({initialSelectedTeam: this.PREDATORS});
+        return;
+      case "MO":
+        this.setState({initialSelectedTeam: this.BLUES});
+        return;
+      case "MT":
+        this.setState({initialSelectedTeam: this.FLAMES});
+        return;
+      case "NE":
+        this.setState({initialSelectedTeam: this.AVALANCHE});
+        return;
+      case "NV":
+        this.setState({initialSelectedTeam: this.KNIGHTS});
+        return;
+      case "NH":
+        this.setState({initialSelectedTeam: this.BRUINS});
+        return;
+      case "AL":
+        this.setState({initialSelectedTeam: this.PREDATORS});
+        return;
       case "NJ":
         this.setState({initialSelectedTeam: this.DEVILS});
         break;
+      case "NM":
+        this.setState({initialSelectedTeam: this.COYOTES});
+        return;
+      case "NY":
+        this.setState({initialSelectedTeam: this.RANGERS}); //TODO:
+        return;
+      case "NC":
+        this.setState({initialSelectedTeam: this.HURRICANES});
+        return;
+      case "ND":
+        this.setState({initialSelectedTeam: this.JETS});
+        return;
+      case "OH":
+        this.setState({initialSelectedTeam: this.BLUEJACKETS});
+        return;
+      case "OK":
+        this.setState({initialSelectedTeam: this.STARS});
+        return;
+      case "OR":
+        this.setState({initialSelectedTeam: this.CANUCKS});
+        return;
+      case "PA":
+        this.setState({initialSelectedTeam: this.PENGUINS}); //TODO
+        return;
+      case "RI":
+        this.setState({initialSelectedTeam: this.BRUINS});
+        return;
+      case "SC":
+        this.setState({initialSelectedTeam: this.HURRICANES});
+        return;
+      case "SD":
+        this.setState({initialSelectedTeam: this.WILD});
+        return;
+      case "TN":
+        this.setState({initialSelectedTeam: this.PREDATORS});
+        return;
+      case "TX":
+        this.setState({initialSelectedTeam: this.STARS});
+        return;
+      case "UT":
+        this.setState({initialSelectedTeam: this.KNIGHTS});
+        return;
+      case "VT":
+        this.setState({initialSelectedTeam: this.BRUINS});
+        return;
+      case "VA":
+        this.setState({initialSelectedTeam: this.CAPITALS});
+        return;
+      case "WA":
+        this.setState({initialSelectedTeam: this.CANUCKS});
+        return;
+      case "WV":
+        this.setState({initialSelectedTeam: this.PENGUINS});
+        return;
+      case "WI":
+        this.setState({initialSelectedTeam: this.WILD});
+        return;
+      case "WY":
+        this.setState({initialSelectedTeam: this.AVALANCHE});
+        return;
     }
-
-    console.log("initial team: " + this.initialSelectedTeam)
   }
 
   componentDidMount()
