@@ -27,6 +27,8 @@ app.get('/api/worthWatching/:teamID/:date', cors(), async (req, res, next) => {
   const date = req.params.date;
   console.log(date);
 
+  let error = null;
+
   try 
   {
     url = "https://statsapi.web.nhl.com/api/v1/schedule?teamId=" + YOUR_TEAM_ID + "&date=" + date;
@@ -94,11 +96,11 @@ app.get('/api/worthWatching/:teamID/:date', cors(), async (req, res, next) => {
       }
     }
 
-    res.json({ "worthWatching": worthWatching });
+    res.json({"worthWatching": worthWatching, "error": error});
   } 
   catch (err)
   {
-    next(err)
+    res.json({"error": "Failed to fetch data"});
   }
 })
 

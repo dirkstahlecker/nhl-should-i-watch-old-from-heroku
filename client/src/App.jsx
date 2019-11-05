@@ -6,6 +6,8 @@ const fetch = require('isomorphic-fetch');
 
 class App extends Component
 {
+  LOCAL = false;
+
   state = {
     error: null,
     worthWatching: null,
@@ -13,21 +15,32 @@ class App extends Component
 
   fetchData = async () => {
     const teamId = document.getElementById("teamId").value;
-    const date = document.getElementById("date").value;
+    const dateStr = document.getElementById("date").value;
+
+    const day = dateStr.substring(8, 10);
+    const date = new Date(dateStr);
+    // const isValidDate = (Boolean(+date) && date.getDate() == day);
+
+    if (date && isNaN(date))
+    {
+      this.setState({error: "Invalid date"});
+      return;
+    }
+    
     var absolute_path = __dirname;
 
-    const urlPrefix = "https:\/\/nhl-should-i-watch.herokuapp.com/"; //"http:\/\/localhost:5000"
-    var url = urlPrefix + "/api/worthWatching/" + teamId + "/" + date; //TODO
+    const urlPrefix = this.LOCAL ? "http:\//localhost:5000" : "https:\//nhl-should-i-watch.herokuapp.com/"; //TODO:
+    var url = urlPrefix + "/api/worthWatching/" + teamId + "/" + dateStr;
     console.log("fetching url " + url);
     const responseRaw = await fetch(url);
     const response = await responseRaw.json();
 
     if (response.error)
     {
-      //TODO
+      this.setState({error: response.error});
+      return;
     }
 
-    // document.getElementById("result").value = "YES";
     this.setState({error: response.error, worthWatching: response.worthWatching});
     
   }
@@ -78,6 +91,12 @@ class App extends Component
           this.state.worthWatching != null &&
           <div>
             {this.state.worthWatching ? "YES" : "NO"}
+          </div>
+        }
+        {
+          this.state.error != null &&
+          <div>
+            {this.state.error}
           </div>
         }
       </div>
