@@ -8,9 +8,74 @@ class App extends Component
 {
   LOCAL = false;
 
+  //team IDs
+  DEVILS = 1;
+  ISLANDERS = 2;
+  RANGERS = 3;
+  FLYERS = 4;
+  PENGUINS = 5;
+  BRUINS = 6;
+  SABRES = 7;
+  CANADIENS = 8;
+  SENATORS = 9;
+  LEAFS = 10;
+  HURRICANES = 12;
+  PANTHERS = 13;
+  LIGHTNING = 14;
+  CAPITALS = 15;
+  BLACKHAWKS = 16;
+  REDWINGS = 17;
+  PREDATORS = 18;
+  BLUES = 19;
+  FLAMES = 20;
+  AVALANCHE = 21;
+  OILERS = 22;
+  CANUCKS = 23;
+  DUCKS = 24;
+  KINGS = 26;
+  SHARKS = 28;
+  BLUEJACKETS = 29;
+  WILD = 30;
+  COYOTES = 53;
+  KNIGHTS = 54;
+
   state = {
     error: null,
     worthWatching: null,
+    initialSelectedTeam: this.BRUINS,
+  }
+
+  getInitialSelectedTeam = async () => {
+    const locationUrl = "http:\//ip-api.com/json/?fields=status,message,countryCode,region,regionName,city,query";
+    const locationDataRaw = await fetch(locationUrl); //, {mode: "no-cors"}
+    console.log(locationDataRaw);
+    const locationData = await locationDataRaw.json();
+
+    console.log("Location data region: " + locationData.region);
+
+    if (locationData.status == "fail")
+    {
+      return; //use defaults
+    }
+
+    this.initialSelectedTeam = this.BRUINS //TODO
+
+    switch (locationData.region)
+    {
+      case "MA":
+        this.setState({initialSelectedTeam: this.BRUINS});
+        break;
+      case "NJ":
+        this.setState({initialSelectedTeam: this.DEVILS});
+        break;
+    }
+
+    console.log("initial team: " + this.initialSelectedTeam)
+  }
+
+  componentDidMount()
+  {
+    this.getInitialSelectedTeam();
   }
 
   fetchData = async () => {
@@ -50,12 +115,12 @@ class App extends Component
     return (
       <div className="App">
         <select id="teamId">
-          <option value="1">New Jersey Devils</option>
+          <option value={this.DEVILS} selected={this.state.initialSelectedTeam == this.DEVILS}>New Jersey Devils</option>
           <option value="2">New York Islanders</option>
           <option value="3">New York Rangers</option>
           <option value="4">Philadelphia Flyers</option>
           <option value="5">Pittsburgh Penguins</option>
-          <option value="6">Boston Bruins</option>
+          <option value={this.BRUINS} selected={this.state.initialSelectedTeam == this.BRUINS}>Boston Bruins</option>
           <option value="7">Buffalo Sabres</option>
           <option value="8">Montreal Canadiens</option>
           <option value="9">Ottawa Senators</option>
@@ -88,7 +153,7 @@ class App extends Component
         <button onClick={this.fetchData}>Should I Watch?</button>
 
         {
-          this.state.worthWatching != null &&
+          this.state.worthWatching != null && this.state.error == null &&
           <div>
             {this.state.worthWatching ? "YES" : "NO"}
           </div>
