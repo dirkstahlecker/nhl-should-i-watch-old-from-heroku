@@ -23,11 +23,20 @@ app.use(express.static(path.join(__dirname, 'client/build')))
 //   }
 // })
 
-app.get('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, next) => {
+
+/*
+  Body: {differential: number, }
+*/
+app.post('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, next) => {
   let YOUR_TEAM_ID = req.params.teamID;
   const date = req.params.date;
   let error = null;
   const metric = req.params.metric;
+
+  const body = req.body;
+
+  const differential = req.body.differential;
+  const randomPercent = req.body.randomPercent;
 
   //win, lose by 1, 10% random
   function worthIt1(yourTeamScore, opponentScore)
@@ -38,7 +47,7 @@ app.get('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, nex
     {
       worthWatching = true;
     }
-    else if (opponentScore - yourTeamScore <= 1)
+    else if (opponentScore - yourTeamScore < differential)
     {
       worthWatching = true;
     }
@@ -49,7 +58,7 @@ app.get('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, nex
     }
     else
     {
-      if (Math.floor(Math.random() * Math.floor(10)) == 0)
+      if (Math.floor(Math.random() * 100) <= randomPercent)
       {
         worthWatching = true;
       }
@@ -128,8 +137,6 @@ app.get('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, nex
 */
 app.post('/api/setMetric', function(request, response)
 {
-  console.log(request)
-  console.log(request.body);
   response.send(request.body);    // echo the result back
 });
 
