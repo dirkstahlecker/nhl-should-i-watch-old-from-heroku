@@ -253,8 +253,8 @@ class App extends Component
     // const responseRaw = await fetch(url);
     // const response = await responseRaw.json();
 
-    const differential = document.getElementById("marginInp").value();
-    const randomPercent = document.getElementById("randomPercent").value();
+    const differential = document.getElementById("marginInp").value;
+    const randomPercent = document.getElementById("randomPercent").value;
 
     const response = await this.postData(url, {differential: differential, randomPercent: randomPercent});
 

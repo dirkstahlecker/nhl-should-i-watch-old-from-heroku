@@ -83,11 +83,32 @@ app.post('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, ne
     const gameDataRaw = await fetch(url);
     const gameData = await gameDataRaw.json();
 
-    const gameIdStr = gameData["dates"][0]["games"][0]["gamePk"];
+    console.log("0")
+
+    try
+    {
+      const gameIdStr = gameData["dates"][0]["games"][0]["gamePk"];
+    }
+    catch
+    {
+      return res.json({ "error" : "Cannot locate game - make sure your team played on this date."});
+    }
+
     const boxScoreUrl = "https://statsapi.web.nhl.com/api/v1/game/" + gameIdStr + "/boxscore";
+
+    console.log("1")
 
     const boxScore = await fetch(boxScoreUrl);
     let gameResults = await boxScore.json();
+
+    console.log("2")
+
+    if (gameResults == null || gameResults == {})
+    {
+      return res.json({ "error" : "Cannot retrieve game results."});
+    }
+
+    console.log("3")
 
     const homeTeam = gameResults["teams"]["home"]
     const awayTeam = gameResults["teams"]["away"]
@@ -114,7 +135,6 @@ app.post('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, ne
 
     console.log("home score: " + homeScore);
     console.log("away score: " + opponentScore);
-    console.log("metric to use: " + metric)
 
     let worthWatching;
     switch (metric)
