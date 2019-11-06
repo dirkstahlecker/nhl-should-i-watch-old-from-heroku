@@ -6,6 +6,9 @@ const fetch = require("node-fetch");
 // Create the server
 const app = express()
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, 'client/build')))
 
@@ -120,6 +123,16 @@ app.get('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, nex
   }
 })
 
+/*
+  body: {}
+*/
+app.post('/api/setMetric', function(request, response)
+{
+  console.log(request)
+  console.log(request.body);
+  response.send(request.body);    // echo the result back
+});
+
 // Anything that doesn't match the above, send back the index.html file
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
@@ -130,3 +143,5 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`Mixing it up on port ${PORT}`)
 })
+
+
