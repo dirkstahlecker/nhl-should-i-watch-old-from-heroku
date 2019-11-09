@@ -302,36 +302,36 @@ class App extends Component
         <div className="columnSection gameOptions">
           <select id="teamId">
             <option value={this.DEVILS} selected={this.state.initialSelectedTeam == this.DEVILS}>New Jersey Devils</option>
-            <option value="2">New York Islanders</option>
-            <option value="3">New York Rangers</option>
-            <option value="4">Philadelphia Flyers</option>
-            <option value="5">Pittsburgh Penguins</option>
+            <option value={this.ISLANDERS} selected={this.state.initialSelectedTeam == this.ISLANDERS}>New York Islanders</option>
+            <option value={this.RANGERS} selected={this.state.initialSelectedTeam == this.RANGERS}>New York Rangers</option>
+            <option value={this.FLYERS} selected={this.state.initialSelectedTeam == this.FLYERS}>Philadelphia Flyers</option>
+            <option value={this.PENGUINS} selected={this.state.initialSelectedTeam == this.PENGUINS}>Pittsburgh Penguins</option>
             <option value={this.BRUINS} selected={this.state.initialSelectedTeam == this.BRUINS}>Boston Bruins</option>
-            <option value="7">Buffalo Sabres</option>
-            <option value="8">Montreal Canadiens</option>
-            <option value="9">Ottawa Senators</option>
-            <option value="10">Toronto Maple Leafs</option>
-            <option value="12">Carolina Hurricanes</option>
-            <option value="13">Florida Panthers</option>
-            <option value="14">Tampa Bay Lightning</option>
-            <option value="15">Washington Capitals</option>
-            <option value="16">Chicago Blackhawks</option>
-            <option value="17">Detroit Red Wings</option>
-            <option value="18">Nashville Predators</option>
-            <option value="19">St. Louis Blues</option>
-            <option value="20">Calgary Flames</option>
-            <option value="21">Colorado Avalanche</option>
-            <option value="22">Edmonton Oilers</option>
-            <option value="23">Vancouver Canucks</option>
-            <option value="24">Anaheim Ducks</option>
-            <option value="25">Dallas Stars</option>
-            <option value="26">Los Angeles Kings</option>
-            <option value="28">San Jose Sharks</option>
-            <option value="29">Columbus Blue Jackets</option>
-            <option value="30">Minnesota Wild</option>
-            <option value="52">Winnipeg Jets</option>
-            <option value="53">Arizona Coyotes</option>
-            <option value="54">Vegas Golden Knights</option>
+            <option value={this.SABRES} selected={this.state.initialSelectedTeam == this.SABRES}>Buffalo Sabres</option>
+            <option value={this.CANADIENS} selected={this.state.initialSelectedTeam == this.CANADIENS}>Montreal Canadiens</option>
+            <option value={this.SENATORS} selected={this.state.initialSelectedTeam == this.SENATORS}>Ottawa Senators</option>
+            <option value={this.LEAFS} selected={this.state.initialSelectedTeam == this.LEAFS}>Toronto Maple Leafs</option>
+            <option value={this.HURRICANES} selected={this.state.initialSelectedTeam == this.HURRICANES}>Carolina Hurricanes</option>
+            <option value={this.PANTHERS} selected={this.state.initialSelectedTeam == this.PANTHERS}>Florida Panthers</option>
+            <option value={this.LIGHTNING} selected={this.state.initialSelectedTeam == this.LIGHTNING}>Tampa Bay Lightning</option>
+            <option value={this.CAPITALS} selected={this.state.initialSelectedTeam == this.CAPITALS}>Washington Capitals</option>
+            <option value={this.BLACKHAWKS} selected={this.state.initialSelectedTeam == this.BLACKHAWKS}>Chicago Blackhawks</option>
+            <option value={this.REDWINGS} selected={this.state.initialSelectedTeam == this.REDWINGS}>Detroit Red Wings</option>
+            <option value={this.PREDATORS} selected={this.state.initialSelectedTeam == this.PREDATORS}>Nashville Predators</option>
+            <option value={this.BLUES} selected={this.state.initialSelectedTeam == this.BLUES}>St. Louis Blues</option>
+            <option value={this.FLAMES} selected={this.state.initialSelectedTeam == this.FLAMES}>Calgary Flames</option>
+            <option value={this.AVALANCHE} selected={this.state.initialSelectedTeam == this.AVALANCHE}>Colorado Avalanche</option>
+            <option value={this.OILERS} selected={this.state.initialSelectedTeam == this.OILERS}>Edmonton Oilers</option>
+            <option value={this.CANUCKS} selected={this.state.initialSelectedTeam == this.CANUCKS}>Vancouver Canucks</option>
+            <option value={this.DUCKS} selected={this.state.initialSelectedTeam == this.DUCKS}>Anaheim Ducks</option>
+            <option value={this.STARS} selected={this.state.initialSelectedTeam == this.STARS}>Dallas Stars</option>
+            <option value={this.KINGS} selected={this.state.initialSelectedTeam == this.KINGS}>Los Angeles Kings</option>
+            <option value={this.SHARKS} selected={this.state.initialSelectedTeam == this.SHARKS}>San Jose Sharks</option>
+            <option value={this.BLUEJACKETS} selected={this.state.initialSelectedTeam == this.BLUEJACKETS}>Columbus Blue Jackets</option>
+            <option value={this.WILD} selected={this.state.initialSelectedTeam == this.WILD}>Minnesota Wild</option>
+            <option value={this.JETS} selected={this.state.initialSelectedTeam == this.JETS}>Winnipeg Jets</option>
+            <option value={this.COYOTES} selected={this.state.initialSelectedTeam == this.COYOTES}>Arizona Coyotes</option>
+            <option value={this.KNIGHTS} selected={this.state.initialSelectedTeam == this.KNIGHTS}>Vegas Golden Knights</option>
           </select>
 
           <input type="date" id="date"/>
