@@ -83,32 +83,25 @@ app.post('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, ne
     const gameDataRaw = await fetch(url);
     const gameData = await gameDataRaw.json();
 
-    console.log("0")
-
+    let gameIdStr;
     try
     {
-      const gameIdStr = gameData["dates"][0]["games"][0]["gamePk"];
+      gameIdStr = gameData["dates"][0]["games"][0]["gamePk"];
     }
-    catch
+    catch (err)
     {
       return res.json({ "error" : "Cannot locate game - make sure your team played on this date."});
     }
 
     const boxScoreUrl = "https://statsapi.web.nhl.com/api/v1/game/" + gameIdStr + "/boxscore";
 
-    console.log("1")
-
     const boxScore = await fetch(boxScoreUrl);
     let gameResults = await boxScore.json();
-
-    console.log("2")
 
     if (gameResults == null || gameResults == {})
     {
       return res.json({ "error" : "Cannot retrieve game results."});
     }
-
-    console.log("3")
 
     const homeTeam = gameResults["teams"]["home"]
     const awayTeam = gameResults["teams"]["away"]
@@ -133,14 +126,14 @@ app.post('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, ne
       return res.json({ "error" : "Cannot locate team"})
     }
 
-    console.log("home score: " + homeScore);
-    console.log("away score: " + opponentScore);
+    console.log("your team score: " + yourTeamScore);
+    console.log("opponent team score: " + opponentScore);
 
     let worthWatching;
     switch (metric)
     {
       case "1":
-        worthWatching = worthIt1(homeScore, opponentScore);
+        worthWatching = worthIt1(yourTeamScore, opponentScore);
         break;
     }
 
@@ -148,6 +141,7 @@ app.post('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, ne
   } 
   catch (err)
   {
+    console.error(err);
     res.json({"error": "Failed to fetch data"});
   }
 })
