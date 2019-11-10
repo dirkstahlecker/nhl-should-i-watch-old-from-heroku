@@ -1,3 +1,7 @@
+body {
+  background-color: #F0F0F0;
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -27,4 +31,20 @@ button:active {
   margin-top: 1em;
   margin-bottom: 1em;
   /*border: 1px solid grey*/
+}
+
+.resultsArea {
+  font-size: 24px;
+}
+
+.resultYes {
+  color: #00ff00;
+}
+
+.resultNo {
+  color: #000000;
+}
+
+.resultError {
+  color: #ff0000;
 }

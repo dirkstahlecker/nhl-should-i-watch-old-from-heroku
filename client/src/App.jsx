@@ -48,10 +48,12 @@ class App extends Component
     initialSelectedTeam: this.BRUINS,
     margin: this.DEFAULT_MARGIN,
     percentage: this.DEFAULT_PERCENTAGE,
+    maxWinDifferential: this.DEFAULT_WIN_DIFF,
   }
 
   DEFAULT_MARGIN = "1";
   DEFAULT_PERCENTAGE = "10";
+  DEFAULT_WIN_DIFF = ""
 
   setInitialSelectedTeam = async () => {
     const selectedCookie = Cookies.get("initialSelectedTeam");
@@ -287,6 +289,16 @@ class App extends Component
       this.setState({percentage: this.DEFAULT_PERCENTAGE});
     }
 
+    const maxWinCookie = Cookies.get("maxWinDifferential");
+    if (maxWinCookie !== undefined)
+    {
+      this.setState({maxWinDifferential: maxWinCookie});
+    }
+    else
+    {
+      this.setState({maxWinDifferential: this.DEFAULT_WIN_DIFF});
+    }
+
     //default to today's date
     var today = new Date();
     var dd = today.getDate();
@@ -329,8 +341,9 @@ class App extends Component
 
     const differential = document.getElementById("marginInp").value;
     const randomPercent = document.getElementById("randomPercent").value;
+    const maxWinDifferential = document.getElementById("maxWinDifferential").value;
 
-    const response = await this.postData(url, {differential: differential, randomPercent: randomPercent});
+    const response = await this.postData(url, {differential: differential, randomPercent: randomPercent, maxWinDifferential: maxWinDifferential});
 
     if (response.error)
     {
@@ -379,6 +392,12 @@ class App extends Component
     Cookies.set("initialSelectedTeam", teamId);
   }
 
+  onMaxWinChange = (e) => {
+    const maxWinDiff = e.currentTarget.value;
+    this.setState({maxWinDifferential: maxWinDiff});
+    Cookies.set("maxWinDifferential", maxWinDiff);
+  }
+
   render() 
   {
     return (
@@ -421,29 +440,40 @@ class App extends Component
             <option value={this.KNIGHTS}>Vegas Golden Knights</option>
           </select>
 
+          &nbsp;
           <label for="date">Game Date: </label>
           <input type="date" id="date"/>
 
+          &nbsp;
           <button onClick={this.fetchData}>Should I Watch?</button>
         </div>
-        <div className="columnSection metrics">
-          Losing margin: <input type="number" id="marginInp" className="numberInput" value={this.state.margin} onChange={this.onMarginChange}/>
-          Random Percentage: <input type="number" id="randomPercent" className="numberInput" value={this.state.percentage} onChange={this.onPercentChange}/>
-        </div>
         <div className="columnSection resultsArea">
-
           {
             this.state.worthWatching != null && this.state.error == null &&
-            <div>
+            <div className={this.state.worthWatching ? "resultYes" : "resultNo"}>
               {this.state.worthWatching ? "YES" : "NO"}
             </div>
           }
           {
             this.state.error != null &&
-            <div>
+            <div className="resultError">
               {this.state.error}
             </div>
           }
+          {
+            this.state.error == null && this.state.worthWatching == null &&
+            <div className="resultPlaceholder">&nbsp;</div>
+          }
+        </div>
+        <div className="columnSection metrics">
+          <label for="marginInp">Losing Margin: </label>
+          <input type="number" id="marginInp" className="numberInput" value={this.state.margin} onChange={this.onMarginChange}/>
+
+          <label for="randomPercent">Random Percentage: </label>
+          <input type="number" id="randomPercent" className="numberInput" value={this.state.percentage} onChange={this.onPercentChange}/>
+
+          <label for="maxWinDifferential">Max Win Differential: </label>
+          <input type="number" id="maxWinDifferential" className="numberInput" value={this.state.maxWinDifferential} onChange={this.onMaxWinChange}/>
         </div>
       </div>
     )

@@ -37,6 +37,7 @@ app.post('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, ne
 
   const differential = req.body.differential;
   const randomPercent = req.body.randomPercent;
+  const maxWinDifferential = req.body.maxWinDifferential;
 
   //win, lose by 1, 10% random
   function worthIt1(yourTeamScore, opponentScore)
@@ -45,8 +46,14 @@ app.post('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, ne
 
     if (yourTeamScore > opponentScore) //your team wins
     {
-      console.log("1")
-      worthWatching = true;
+      if (maxWinDifferential > 0 && !isNaN(maxWinDifferential)) //not a blowout
+      {
+        worthWatching = Math.abs(yourTeamScore - opponentScore) <= maxWinDifferential;
+      }
+      else
+      {
+        worthWatching = true;
+      }
     }
     else if (Math.abs(opponentScore - yourTeamScore) <= differential) //the differential is close enough
     {
