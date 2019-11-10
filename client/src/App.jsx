@@ -235,7 +235,7 @@ class App extends Component
         break;
       case "BC":
         initialSelectedTeam = this.CANUCKS;
-        breka;
+        break;
       case "MB":
         initialSelectedTeam = this.JETS;
         break;
