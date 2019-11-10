@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
+const Cookies = require('js-cookie');
 
 require('es6-promise').polyfill();
 const fetch = require('isomorphic-fetch');
@@ -45,7 +46,12 @@ class App extends Component
     error: null,
     worthWatching: null,
     initialSelectedTeam: this.BRUINS,
+    margin: this.DEFAULT_MARGIN,
+    percentage: this.DEFAULT_PERCENTAGE,
   }
+
+  DEFAULT_MARGIN = "1";
+  DEFAULT_PERCENTAGE = "10";
 
   getInitialSelectedTeam = async () => {
     const locationUrl = "http:\//ip-api.com/json/?fields=status,message,countryCode,region,regionName,city,query";
@@ -55,7 +61,7 @@ class App extends Component
 
     console.log("Location data region: " + locationData.region);
 
-    if (locationData.status == "fail")
+    if (locationData.status === "fail")
     {
       return; //use defaults
     }
@@ -80,7 +86,7 @@ class App extends Component
         return;
       case "CA":
         //TODO
-        this.setState({initialSelectedTeam: this.PREDATORS});
+        this.setState({initialSelectedTeam: this.KINGS});
         return;
       case "CO":
         this.setState({initialSelectedTeam: this.AVALANCHE});
@@ -221,12 +227,27 @@ class App extends Component
       case "WY":
         this.setState({initialSelectedTeam: this.AVALANCHE});
         return;
+      default:
+        this.setState({initialSelectedTeam: this.BRUINS});
+        return;
     }
   }
 
   componentDidMount()
   {
     this.getInitialSelectedTeam();
+
+    const marginCookie = Cookies.get("margin");
+    if (marginCookie !== undefined)
+    {
+      this.setState({margin: marginCookie});
+    }
+
+    const percentCookie = Cookies.get("percentage");
+    if (percentCookie !== undefined)
+    {
+      this.setState({percentage: percentCookie});
+    }
   }
 
   fetchData = async () => {
@@ -250,8 +271,6 @@ class App extends Component
     const urlPrefix = this.LOCAL ? "http:\//localhost:5000" : "https:\//nhl-should-i-watch.herokuapp.com"; //TODO:
     var url = urlPrefix + "/api/worthWatching/" + teamId + "/" + dateStr + "/" + metric;
     console.log("fetching url " + url);
-    // const responseRaw = await fetch(url);
-    // const response = await responseRaw.json();
 
     const differential = document.getElementById("marginInp").value;
     const randomPercent = document.getElementById("randomPercent").value;
@@ -295,43 +314,56 @@ class App extends Component
     console.log(result);
   }
 
+  onMarginChange = (e) => {
+    const margin = e.currentTarget.value;
+    this.setState({margin: margin});
+    Cookies.set("margin", margin);
+  }
+
+  onPercentChange = (e) => {
+    const percent = e.currentTarget.value;
+    this.setState({percentage: percent});
+    Cookies.set("percentage": percent);
+  }
+
   render() 
   {
     return (
       <div className="App">
+        <div>Should I Watch?</div>
         <div className="columnSection gameOptions">
           <select id="teamId">
-            <option value={this.DEVILS} selected={this.state.initialSelectedTeam == this.DEVILS}>New Jersey Devils</option>
-            <option value={this.ISLANDERS} selected={this.state.initialSelectedTeam == this.ISLANDERS}>New York Islanders</option>
-            <option value={this.RANGERS} selected={this.state.initialSelectedTeam == this.RANGERS}>New York Rangers</option>
-            <option value={this.FLYERS} selected={this.state.initialSelectedTeam == this.FLYERS}>Philadelphia Flyers</option>
-            <option value={this.PENGUINS} selected={this.state.initialSelectedTeam == this.PENGUINS}>Pittsburgh Penguins</option>
-            <option value={this.BRUINS} selected={this.state.initialSelectedTeam == this.BRUINS}>Boston Bruins</option>
-            <option value={this.SABRES} selected={this.state.initialSelectedTeam == this.SABRES}>Buffalo Sabres</option>
-            <option value={this.CANADIENS} selected={this.state.initialSelectedTeam == this.CANADIENS}>Montreal Canadiens</option>
-            <option value={this.SENATORS} selected={this.state.initialSelectedTeam == this.SENATORS}>Ottawa Senators</option>
-            <option value={this.LEAFS} selected={this.state.initialSelectedTeam == this.LEAFS}>Toronto Maple Leafs</option>
-            <option value={this.HURRICANES} selected={this.state.initialSelectedTeam == this.HURRICANES}>Carolina Hurricanes</option>
-            <option value={this.PANTHERS} selected={this.state.initialSelectedTeam == this.PANTHERS}>Florida Panthers</option>
-            <option value={this.LIGHTNING} selected={this.state.initialSelectedTeam == this.LIGHTNING}>Tampa Bay Lightning</option>
-            <option value={this.CAPITALS} selected={this.state.initialSelectedTeam == this.CAPITALS}>Washington Capitals</option>
-            <option value={this.BLACKHAWKS} selected={this.state.initialSelectedTeam == this.BLACKHAWKS}>Chicago Blackhawks</option>
-            <option value={this.REDWINGS} selected={this.state.initialSelectedTeam == this.REDWINGS}>Detroit Red Wings</option>
-            <option value={this.PREDATORS} selected={this.state.initialSelectedTeam == this.PREDATORS}>Nashville Predators</option>
-            <option value={this.BLUES} selected={this.state.initialSelectedTeam == this.BLUES}>St. Louis Blues</option>
-            <option value={this.FLAMES} selected={this.state.initialSelectedTeam == this.FLAMES}>Calgary Flames</option>
-            <option value={this.AVALANCHE} selected={this.state.initialSelectedTeam == this.AVALANCHE}>Colorado Avalanche</option>
-            <option value={this.OILERS} selected={this.state.initialSelectedTeam == this.OILERS}>Edmonton Oilers</option>
-            <option value={this.CANUCKS} selected={this.state.initialSelectedTeam == this.CANUCKS}>Vancouver Canucks</option>
-            <option value={this.DUCKS} selected={this.state.initialSelectedTeam == this.DUCKS}>Anaheim Ducks</option>
-            <option value={this.STARS} selected={this.state.initialSelectedTeam == this.STARS}>Dallas Stars</option>
-            <option value={this.KINGS} selected={this.state.initialSelectedTeam == this.KINGS}>Los Angeles Kings</option>
-            <option value={this.SHARKS} selected={this.state.initialSelectedTeam == this.SHARKS}>San Jose Sharks</option>
-            <option value={this.BLUEJACKETS} selected={this.state.initialSelectedTeam == this.BLUEJACKETS}>Columbus Blue Jackets</option>
-            <option value={this.WILD} selected={this.state.initialSelectedTeam == this.WILD}>Minnesota Wild</option>
-            <option value={this.JETS} selected={this.state.initialSelectedTeam == this.JETS}>Winnipeg Jets</option>
-            <option value={this.COYOTES} selected={this.state.initialSelectedTeam == this.COYOTES}>Arizona Coyotes</option>
-            <option value={this.KNIGHTS} selected={this.state.initialSelectedTeam == this.KNIGHTS}>Vegas Golden Knights</option>
+            <option value={this.DEVILS} selected={this.state.initialSelectedTeam === this.DEVILS}>New Jersey Devils</option>
+            <option value={this.ISLANDERS} selected={this.state.initialSelectedTeam === this.ISLANDERS}>New York Islanders</option>
+            <option value={this.RANGERS} selected={this.state.initialSelectedTeam === this.RANGERS}>New York Rangers</option>
+            <option value={this.FLYERS} selected={this.state.initialSelectedTeam === this.FLYERS}>Philadelphia Flyers</option>
+            <option value={this.PENGUINS} selected={this.state.initialSelectedTeam === this.PENGUINS}>Pittsburgh Penguins</option>
+            <option value={this.BRUINS} selected={this.state.initialSelectedTeam === this.BRUINS}>Boston Bruins</option>
+            <option value={this.SABRES} selected={this.state.initialSelectedTeam === this.SABRES}>Buffalo Sabres</option>
+            <option value={this.CANADIENS} selected={this.state.initialSelectedTeam === this.CANADIENS}>Montreal Canadiens</option>
+            <option value={this.SENATORS} selected={this.state.initialSelectedTeam === this.SENATORS}>Ottawa Senators</option>
+            <option value={this.LEAFS} selected={this.state.initialSelectedTeam === this.LEAFS}>Toronto Maple Leafs</option>
+            <option value={this.HURRICANES} selected={this.state.initialSelectedTeam === this.HURRICANES}>Carolina Hurricanes</option>
+            <option value={this.PANTHERS} selected={this.state.initialSelectedTeam === this.PANTHERS}>Florida Panthers</option>
+            <option value={this.LIGHTNING} selected={this.state.initialSelectedTeam === this.LIGHTNING}>Tampa Bay Lightning</option>
+            <option value={this.CAPITALS} selected={this.state.initialSelectedTeam === this.CAPITALS}>Washington Capitals</option>
+            <option value={this.BLACKHAWKS} selected={this.state.initialSelectedTeam === this.BLACKHAWKS}>Chicago Blackhawks</option>
+            <option value={this.REDWINGS} selected={this.state.initialSelectedTeam === this.REDWINGS}>Detroit Red Wings</option>
+            <option value={this.PREDATORS} selected={this.state.initialSelectedTeam === this.PREDATORS}>Nashville Predators</option>
+            <option value={this.BLUES} selected={this.state.initialSelectedTeam === this.BLUES}>St. Louis Blues</option>
+            <option value={this.FLAMES} selected={this.state.initialSelectedTeam === this.FLAMES}>Calgary Flames</option>
+            <option value={this.AVALANCHE} selected={this.state.initialSelectedTeam === this.AVALANCHE}>Colorado Avalanche</option>
+            <option value={this.OILERS} selected={this.state.initialSelectedTeam === this.OILERS}>Edmonton Oilers</option>
+            <option value={this.CANUCKS} selected={this.state.initialSelectedTeam === this.CANUCKS}>Vancouver Canucks</option>
+            <option value={this.DUCKS} selected={this.state.initialSelectedTeam === this.DUCKS}>Anaheim Ducks</option>
+            <option value={this.STARS} selected={this.state.initialSelectedTeam === this.STARS}>Dallas Stars</option>
+            <option value={this.KINGS} selected={this.state.initialSelectedTeam === this.KINGS}>Los Angeles Kings</option>
+            <option value={this.SHARKS} selected={this.state.initialSelectedTeam === this.SHARKS}>San Jose Sharks</option>
+            <option value={this.BLUEJACKETS} selected={this.state.initialSelectedTeam === this.BLUEJACKETS}>Columbus Blue Jackets</option>
+            <option value={this.WILD} selected={this.state.initialSelectedTeam === this.WILD}>Minnesota Wild</option>
+            <option value={this.JETS} selected={this.state.initialSelectedTeam === this.JETS}>Winnipeg Jets</option>
+            <option value={this.COYOTES} selected={this.state.initialSelectedTeam === this.COYOTES}>Arizona Coyotes</option>
+            <option value={this.KNIGHTS} selected={this.state.initialSelectedTeam === this.KNIGHTS}>Vegas Golden Knights</option>
           </select>
 
           <input type="date" id="date"/>
@@ -339,8 +371,8 @@ class App extends Component
           <button onClick={this.fetchData}>Should I Watch?</button>
         </div>
         <div className="columnSection metrics">
-          Losing margin: <input type="number" id="marginInp" value="1"/>
-          Random Percentage: <input type="number" id="randomPercent" value="10"/>
+          Losing margin: <input type="number" id="marginInp" className="numberInput" value={this.state.margin} onChange={this.onMarginChange}/>
+          Random Percentage: <input type="number" id="randomPercent" className="numberInput" value={this.state.percentage} onChange={this.onPercentChange}/>
         </div>
         <div className="columnSection resultsArea">
 
@@ -363,3 +395,11 @@ class App extends Component
 }
 
 export default App
+
+
+/* TODO
+
+-cookies to restore previous inputs
+
+
+*/
