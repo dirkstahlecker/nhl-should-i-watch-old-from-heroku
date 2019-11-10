@@ -383,8 +383,10 @@ class App extends Component
   {
     return (
       <div className="App">
-        <div>Should I Watch?</div>
+        <h1>Should I Watch?</h1>
+        <h3>Quickly find out if a recorded NHL game is worth watching</h3>
         <div className="columnSection gameOptions">
+          <label for="teamId">Team: </label>
           <select id="teamId" onChange={this.onTeamChange} value={this.state.initialSelectedTeam}>
             <option value={this.DEVILS} selected={this.state.initialSelectedTeam === this.DEVILS}>New Jersey Devils</option>
             <option value={this.ISLANDERS} selected={this.state.initialSelectedTeam === this.ISLANDERS}>New York Islanders</option>
@@ -419,6 +421,7 @@ class App extends Component
             <option value={this.KNIGHTS} selected={this.state.initialSelectedTeam === this.KNIGHTS}>Vegas Golden Knights</option>
           </select>
 
+          <label for="date">Game Date: </label>
           <input type="date" id="date"/>
 
           <button onClick={this.fetchData}>Should I Watch?</button>
