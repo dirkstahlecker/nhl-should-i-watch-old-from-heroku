@@ -7,7 +7,7 @@ const fetch = require('isomorphic-fetch');
 
 class App extends Component
 {
-  LOCAL = true;
+  LOCAL = false;
 
   //team IDs
   DEVILS = 1;
@@ -331,14 +331,6 @@ class App extends Component
     return await response.json(); // parses JSON response into native JavaScript objects
   }
 
-  postTest = async () => {
-    const urlPrefix = this.LOCAL ? "http:\//localhost:5000" : "https:\//nhl-should-i-watch.herokuapp.com"; //TODO:
-    var url = urlPrefix + "/api/setMetric";
-
-    let result = await this.postData(url, {"data": "A THING"});
-    console.log(result);
-  }
-
   onMarginChange = (e) => {
     const margin = e.currentTarget.value;
     this.setState({margin: margin});
@@ -424,7 +416,8 @@ export default App
 
 /* TODO
 
--cookies to restore previous inputs
+-styling
+
 
 
 */
