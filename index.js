@@ -43,28 +43,25 @@ app.post('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, ne
   {
     let worthWatching = false;
 
-    if (yourTeamScore > opponentScore)
+    if (yourTeamScore > opponentScore) //your team wins
     {
+      console.log("1")
       worthWatching = true;
     }
-    else if (opponentScore - yourTeamScore < differential)
+    else if (Math.abs(opponentScore - yourTeamScore) <= differential) //the differential is close enough
     {
+      console.log(Math.abs(opponentScore - yourTeamScore))
+      console.log("differential: " + differential);
+      console.log("2")
       worthWatching = true;
     }
 
-    if (worthWatching)
-    {
-      worthWatching = true;
-    }
-    else
+    if (worthWatching === false) //random chance of showing yes instead of no
     {
       if (Math.floor(Math.random() * 100) <= randomPercent)
       {
+        console.log("4")
         worthWatching = true;
-      }
-      else
-      {
-        worthWatching = false;
       }
     }
     return worthWatching;

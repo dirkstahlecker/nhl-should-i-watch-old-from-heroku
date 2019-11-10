@@ -242,12 +242,37 @@ class App extends Component
     {
       this.setState({margin: marginCookie});
     }
+    else
+    {
+      this.setState({margin: this.DEFAULT_MARGIN});
+    }
 
     const percentCookie = Cookies.get("percentage");
     if (percentCookie !== undefined)
     {
       this.setState({percentage: percentCookie});
     }
+    else
+    {
+      this.setState({percentage: this.DEFAULT_PERCENTAGE});
+    }
+
+    //default to today's date
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0
+    var yyyy = today.getFullYear();
+    if (dd<10)
+    {
+      dd='0'+dd
+    }
+    if (mm<10)
+    {
+      mm='0'+mm
+    }
+    today = yyyy + "-" + mm + "-" + dd;
+
+    document.getElementById("date").value = today;
   }
 
   fetchData = async () => {
@@ -321,9 +346,9 @@ class App extends Component
   }
 
   onPercentChange = (e) => {
-    const percent = e.currentTarget.value;
-    this.setState({percentage: percent});
-    Cookies.set("percentage": percent);
+    const percentage = e.currentTarget.value;
+    this.setState({percentage: percentage});
+    Cookies.set("percentage", percentage);
   }
 
   render() 
