@@ -7,7 +7,7 @@ const fetch = require('isomorphic-fetch');
 
 class App extends Component
 {
-  LOCAL = false;
+  LOCAL = true;
 
   //team IDs
   DEVILS = 1;
@@ -54,9 +54,14 @@ class App extends Component
   DEFAULT_PERCENTAGE = "10";
 
   getInitialSelectedTeam = async () => {
+    const selectedCookie = Cookies.get("initialSelectedTeam");
+    if (selectedCookie != null)
+    {
+      return selectedCookie;
+    }
+
     const locationUrl = "http:\//ip-api.com/json/?fields=status,message,countryCode,region,regionName,city,query";
     const locationDataRaw = await fetch(locationUrl); //, {mode: "no-cors"}
-    console.log(locationDataRaw);
     const locationData = await locationDataRaw.json();
 
     console.log("Location data region: " + locationData.region);
@@ -66,171 +71,171 @@ class App extends Component
       return; //use defaults
     }
 
-    this.initialSelectedTeam = this.BRUINS //TODO
+    let initialSelectedTeam = this.BRUINS //TODO
 
     //https://ip-api.com/docs/api:json#test
 
     switch (locationData.region)
     {
       case "AL":
-        this.setState({initialSelectedTeam: this.PREDATORS});
-        return;
+        initialSelectedTeam = this.PREDATORS;
+        break;
       case "AK":
-        this.setState({initialSelectedTeam: this.CANUCKS});
-        return;
+        initialSelectedTeam = this.CANUCKS;
+        break;
       case "AZ":
-        this.setState({initialSelectedTeam: this.COYOTES});
-        return;
+        initialSelectedTeam = this.COYOTES;
+        break;
       case "AR":
-        this.setState({initialSelectedTeam: this.STARS});
-        return;
+        initialSelectedTeam = this.STARS;
+        break;
       case "CA":
         //TODO
-        this.setState({initialSelectedTeam: this.KINGS});
-        return;
+        initialSelectedTeam = this.KINGS;
+        break;
       case "CO":
-        this.setState({initialSelectedTeam: this.AVALANCHE});
-        return;
+        initialSelectedTeam = this.AVALANCHE;
+        break;
       case "CT":
-        this.setState({initialSelectedTeam: this.BRUINS});
-        return;
+        initialSelectedTeam = this.BRUINS;
+        break;
       case "DE":
-        this.setState({initialSelectedTeam: this.FLYERS});
-        return;
+        initialSelectedTeam = this.FLYERS;
+        break;
       case "FL":
-        this.setState({initialSelectedTeam: this.PANTHERS});
+        initialSelectedTeam = this.PANTHERS;
         //TODO
-        return;
+        break;
       case "GA":
-        this.setState({initialSelectedTeam: this.LIGHTNING});
-        return;
+        initialSelectedTeam = this.LIGHTNING;
+        break;
       case "HI":
-        this.setState({initialSelectedTeam: this.SHARKS});
-        return;
+        initialSelectedTeam = this.SHARKS;
+        break;
       case "ID":
-        this.setState({initialSelectedTeam: this.AVALANCHE});
+        initialSelectedTeam = this.AVALANCHE;
         break;
       case "IL":
-        this.setState({initialSelectedTeam: this.BLACKHAWKS});
-        return;
+        initialSelectedTeam = this.BLACKHAWKS;
+        break;
       case "IN":
-        this.setState({initialSelectedTeam: this.BLACKHAWKS});
-        return;
+        initialSelectedTeam = this.BLACKHAWKS;
+        break;
       case "IA":
-        this.setState({initialSelectedTeam: this.WILD});
-        return;
+        initialSelectedTeam = this.WILD;
+        break;
       case "KS":
-        this.setState({initialSelectedTeam: this.AVALANCHE});
-        return;
+        initialSelectedTeam = this.AVALANCHE;
+        break;
       case "KY":
-        this.setState({initialSelectedTeam: this.PREDATORS});
-        return;
+        initialSelectedTeam = this.PREDATORS;
+        break;
       case "LA":
-        this.setState({initialSelectedTeam: this.STARS});
-        return;
+        initialSelectedTeam = this.STARS;
+        break;
       case "ME":
-        this.setState({initialSelectedTeam: this.BRUINS});
-        return;
+        initialSelectedTeam = this.BRUINS;
+        break;
       case "MD":
-        this.setState({initialSelectedTeam: this.CAPITALS});
-        return;
+        initialSelectedTeam = this.CAPITALS;
+        break;
       case "MA":
-        this.setState({initialSelectedTeam: this.BRUINS});
-        return;
+        initialSelectedTeam = this.BRUINS;
+        break;
       case "MI":
-        this.setState({initialSelectedTeam: this.REDWINGS});
-        return;
+        initialSelectedTeam = this.REDWINGS;
+        break;
       case "MN":
-        this.setState({initialSelectedTeam: this.WILD});
-        return;
+        initialSelectedTeam = this.WILD;
+        break;
       case "MS":
-        this.setState({initialSelectedTeam: this.PREDATORS});
-        return;
+        initialSelectedTeam = this.PREDATORS;
+        break;
       case "MO":
-        this.setState({initialSelectedTeam: this.BLUES});
-        return;
+        initialSelectedTeam = this.BLUES;
+        break;
       case "MT":
-        this.setState({initialSelectedTeam: this.FLAMES});
-        return;
+        initialSelectedTeam = this.FLAMES;
+        break;
       case "NE":
-        this.setState({initialSelectedTeam: this.AVALANCHE});
-        return;
+        initialSelectedTeam = this.AVALANCHE;
+        break;
       case "NV":
-        this.setState({initialSelectedTeam: this.KNIGHTS});
-        return;
+        initialSelectedTeam = this.KNIGHTS;
+        break;
       case "NH":
-        this.setState({initialSelectedTeam: this.BRUINS});
-        return;
-      case "AL":
-        this.setState({initialSelectedTeam: this.PREDATORS});
-        return;
+        initialSelectedTeam = this.BRUINS;
+        break;
       case "NJ":
-        this.setState({initialSelectedTeam: this.DEVILS});
+        initialSelectedTeam = this.DEVILS;
         break;
       case "NM":
-        this.setState({initialSelectedTeam: this.COYOTES});
-        return;
+        initialSelectedTeam = this.COYOTES;
+        break;
       case "NY":
-        this.setState({initialSelectedTeam: this.RANGERS}); //TODO:
-        return;
+        initialSelectedTeam = this.RANGERS; //TODO:
+        break;
       case "NC":
-        this.setState({initialSelectedTeam: this.HURRICANES});
-        return;
+        initialSelectedTeam = this.HURRICANES;
+        break;
       case "ND":
-        this.setState({initialSelectedTeam: this.JETS});
-        return;
+        initialSelectedTeam = this.JETS;
+        break;
       case "OH":
-        this.setState({initialSelectedTeam: this.BLUEJACKETS});
-        return;
+        initialSelectedTeam = this.BLUEJACKETS;
+        break;
       case "OK":
-        this.setState({initialSelectedTeam: this.STARS});
-        return;
+        initialSelectedTeam = this.STARS;
+        break;
       case "OR":
-        this.setState({initialSelectedTeam: this.CANUCKS});
-        return;
+        initialSelectedTeam = this.CANUCKS;
+        break;
       case "PA":
-        this.setState({initialSelectedTeam: this.PENGUINS}); //TODO
-        return;
+        initialSelectedTeam = this.PENGUINS; //TODO
+        break;
       case "RI":
-        this.setState({initialSelectedTeam: this.BRUINS});
-        return;
+        initialSelectedTeam = this.BRUINS;
+        break;
       case "SC":
-        this.setState({initialSelectedTeam: this.HURRICANES});
-        return;
+        initialSelectedTeam = this.HURRICANES;
+        break;
       case "SD":
-        this.setState({initialSelectedTeam: this.WILD});
-        return;
+        initialSelectedTeam = this.WILD;
+        break;
       case "TN":
-        this.setState({initialSelectedTeam: this.PREDATORS});
-        return;
+        initialSelectedTeam = this.PREDATORS;
+        break;
       case "TX":
-        this.setState({initialSelectedTeam: this.STARS});
-        return;
+        initialSelectedTeam = this.STARS;
+        break;
       case "UT":
-        this.setState({initialSelectedTeam: this.KNIGHTS});
-        return;
+        initialSelectedTeam = this.KNIGHTS;
+        break;
       case "VT":
-        this.setState({initialSelectedTeam: this.BRUINS});
-        return;
+        initialSelectedTeam = this.BRUINS;
+        break;
       case "VA":
-        this.setState({initialSelectedTeam: this.CAPITALS});
-        return;
+        initialSelectedTeam = this.CAPITALS;
+        break;
       case "WA":
-        this.setState({initialSelectedTeam: this.CANUCKS});
-        return;
+        initialSelectedTeam = this.CANUCKS;
+        break;
       case "WV":
-        this.setState({initialSelectedTeam: this.PENGUINS});
-        return;
+        initialSelectedTeam = this.PENGUINS;
+        break;
       case "WI":
-        this.setState({initialSelectedTeam: this.WILD});
+        initialSelectedTeam = this.WILD;
         return;
       case "WY":
-        this.setState({initialSelectedTeam: this.AVALANCHE});
-        return;
+        initialSelectedTeam = this.AVALANCHE;
+        break;
       default:
-        this.setState({initialSelectedTeam: this.BRUINS});
-        return;
+        initialSelectedTeam = this.BRUINS;
+        break;
     }
+
+    this.setState({initialSelectedTeam: initialSelectedTeam});
+    Cookies.set("initialSelectedTeam", initialSelectedTeam);
   }
 
   componentDidMount()

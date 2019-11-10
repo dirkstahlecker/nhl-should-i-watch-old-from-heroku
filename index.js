@@ -90,6 +90,11 @@ app.post('/api/worthWatching/:teamID/:date/:metric', cors(), async (req, res, ne
       return res.json({ "error" : "Cannot locate game - make sure your team played on this date."});
     }
 
+    if (gameData["dates"][0]["games"][0]["status"]["detailedState"] != "Final")
+    {
+      return res.json({ "error" : "This game has not been completed - please check back later."});
+    }
+
     const boxScoreUrl = "https://statsapi.web.nhl.com/api/v1/game/" + gameIdStr + "/boxscore";
 
     const boxScore = await fetch(boxScoreUrl);

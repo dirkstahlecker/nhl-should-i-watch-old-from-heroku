@@ -14,11 +14,11 @@
 }
 
 button:hover {
-  background-color: rgb(255, 235, 59);
+  /*background-color: rgb(255, 235, 59);*/
 }
 
 button:active {
-  background-color: rgb(255, 244, 142);
+  /*background-color: rgb(255, 244, 142);*/
 }
 
 .numberInput {
