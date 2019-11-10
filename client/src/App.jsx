@@ -402,8 +402,10 @@ class App extends Component
   {
     return (
       <div className="App">
-        <h1>Should I Watch?</h1>
-        <h3>Quickly find out if a recorded NHL game is worth watching</h3>
+        <div className="headerSection">
+          <h1>Should I Watch?</h1>
+          <h3>Quickly find out if a recorded NHL game is worth watching</h3>
+        </div>
         <div className="columnSection gameOptions">
           <label for="teamId">Team: </label>
           <select id="teamId" onChange={this.onTeamChange} value={this.state.initialSelectedTeam}>
@@ -465,16 +467,23 @@ class App extends Component
             <div className="resultPlaceholder">&nbsp;</div>
           }
         </div>
+  
         <div className="columnSection metrics">
-          <label for="marginInp">Losing Margin: </label>
-          <input type="number" id="marginInp" className="numberInput" value={this.state.margin} onChange={this.onMarginChange}/>
+          <details>
+            <summary>Adjust Metrics</summary>
+            <label for="marginInp">Losing Margin: </label>
+            <input type="number" id="marginInp" className="numberInput" value={this.state.margin} onChange={this.onMarginChange}/>
 
-          <label for="randomPercent">Random Percentage: </label>
-          <input type="number" id="randomPercent" className="numberInput" value={this.state.percentage} onChange={this.onPercentChange}/>
+            &nbsp;
+            <label for="randomPercent">Random Percentage: </label>
+            <input type="number" id="randomPercent" className="numberInput" value={this.state.percentage} onChange={this.onPercentChange}/>
 
-          <label for="maxWinDifferential">Max Win Differential: </label>
-          <input type="number" id="maxWinDifferential" className="numberInput" value={this.state.maxWinDifferential} onChange={this.onMaxWinChange}/>
+            &nbsp;
+            <label for="maxWinDifferential">Max Win Differential: </label>
+            <input type="number" id="maxWinDifferential" className="numberInput" value={this.state.maxWinDifferential} onChange={this.onMaxWinChange}/>
+          </details>
         </div>
+        
       </div>
     )
   }
