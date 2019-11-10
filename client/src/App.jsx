@@ -53,10 +53,11 @@ class App extends Component
   DEFAULT_MARGIN = "1";
   DEFAULT_PERCENTAGE = "10";
 
-  getInitialSelectedTeam = async () => {
+  setInitialSelectedTeam = async () => {
     const selectedCookie = Cookies.get("initialSelectedTeam");
     if (selectedCookie != null)
     {
+      this.setState({initialSelectedTeam: selectedCookie});
       return selectedCookie;
     }
 
@@ -240,7 +241,7 @@ class App extends Component
 
   componentDidMount()
   {
-    this.getInitialSelectedTeam();
+    this.setInitialSelectedTeam();
 
     const marginCookie = Cookies.get("margin");
     if (marginCookie !== undefined)
@@ -348,13 +349,19 @@ class App extends Component
     Cookies.set("percentage", percentage);
   }
 
+  onTeamChange = (e) => {
+    const teamId = e.currentTarget.value;
+    this.setState({initialSelectedTeam: teamId});
+    Cookies.set("initialSelectedTeam", teamId);
+  }
+
   render() 
   {
     return (
       <div className="App">
         <div>Should I Watch?</div>
         <div className="columnSection gameOptions">
-          <select id="teamId">
+          <select id="teamId" onChange={this.onTeamChange} value={this.state.initialSelectedTeam}>
             <option value={this.DEVILS} selected={this.state.initialSelectedTeam === this.DEVILS}>New Jersey Devils</option>
             <option value={this.ISLANDERS} selected={this.state.initialSelectedTeam === this.ISLANDERS}>New York Islanders</option>
             <option value={this.RANGERS} selected={this.state.initialSelectedTeam === this.RANGERS}>New York Rangers</option>
@@ -422,6 +429,7 @@ export default App
 /* TODO
 
 -styling
+-support Canada
 
 
 
