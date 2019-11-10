@@ -230,6 +230,30 @@ class App extends Component
       case "WY":
         initialSelectedTeam = this.AVALANCHE;
         break;
+      case "AB":
+        initialSelectedTeam = this.OILERS; //TODO
+        break;
+      case "BC":
+        initialSelectedTeam = this.CANUCKS;
+        breka;
+      case "MB":
+        initialSelectedTeam = this.JETS;
+        break;
+      case "NB":
+        initialSelectedTeam = this.BRUINS;
+        break;
+      case "NL":
+        initialSelectedTeam = this.CANADIENS;
+        break;
+      case "NS":
+        initialSelectedTeam = this.CANADIENS;
+        break;
+      case "ON":
+        initialSelectedTeam = this.LEAFS;
+        break;
+      case "PE":
+        initialSelectedTeam = this.CANADIENS;
+        break;
       default:
         initialSelectedTeam = this.BRUINS;
         break;
@@ -429,8 +453,6 @@ export default App
 /* TODO
 
 -styling
--support Canada
-
 
 
 */
