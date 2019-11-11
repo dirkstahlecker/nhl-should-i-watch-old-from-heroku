@@ -7,7 +7,7 @@ const fetch = require('isomorphic-fetch');
 
 class App extends Component
 {
-  LOCAL = true;
+  LOCAL = false;
 
   //team IDs
   DEVILS = 1;
