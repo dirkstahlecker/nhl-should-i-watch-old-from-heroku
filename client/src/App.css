@@ -57,6 +57,14 @@ h1 {
    height: 120px;
 }*/
 
+button {
+  border-radius: 6px;
+}
+
+input {
+  border-radius: 6px;
+}
+
 button:hover {
   /*background-color: rgb(255, 235, 59);*/
 }
