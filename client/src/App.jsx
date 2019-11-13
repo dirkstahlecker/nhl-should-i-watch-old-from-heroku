@@ -401,89 +401,92 @@ class App extends Component
   render() 
   {
     return (
-      <div className="App">
-        <div className="headerSection">
-          <h1>Should I Watch?</h1>
-          <h3>Quickly find out if a recorded NHL game is worth watching</h3>
-        </div>
-        <div className="columnSection gameOptions">
-          <label for="teamId">Team: </label>
-          <select id="teamId" onChange={this.onTeamChange} value={this.state.initialSelectedTeam}>
-            <option value={this.DUCKS}>Anaheim Ducks</option>
-            <option value={this.COYOTES}>Arizona Coyotes</option>
-            <option value={this.BRUINS}>Boston Bruins</option>
-            <option value={this.SABRES}>Buffalo Sabres</option>
-            <option value={this.FLAMES}>Calgary Flames</option>
-            <option value={this.HURRICANES}>Carolina Hurricanes</option>
-            <option value={this.BLACKHAWKS}>Chicago Blackhawks</option>
-            <option value={this.AVALANCHE}>Colorado Avalanche</option>
-            <option value={this.BLUEJACKETS}>Columbus Blue Jackets</option>
-            <option value={this.STARS}>Dallas Stars</option>
-            <option value={this.REDWINGS}>Detroit Red Wings</option>
-            <option value={this.OILERS}>Edmonton Oilers</option>
-            <option value={this.PANTHERS}>Florida Panthers</option>
-            <option value={this.KINGS}>Los Angeles Kings</option>
-            <option value={this.WILD}>Minnesota Wild</option>
-            <option value={this.CANADIENS}>Montreal Canadiens</option>
-            <option value={this.PREDATORS}>Nashville Predators</option>
-            <option value={this.DEVILS}>New Jersey Devils</option>
-            <option value={this.ISLANDERS}>New York Islanders</option>
-            <option value={this.RANGERS}>New York Rangers</option>
-            <option value={this.SENATORS}>Ottawa Senators</option>
-            <option value={this.FLYERS}>Philadelphia Flyers</option>
-            <option value={this.PENGUINS}>Pittsburgh Penguins</option>
-            <option value={this.SHARKS}>San Jose Sharks</option>
-            <option value={this.BLUES}>St. Louis Blues</option>
-            <option value={this.LIGHTNING}>Tampa Bay Lightning</option>
-            <option value={this.LEAFS}>Toronto Maple Leafs</option>
-            <option value={this.CANUCKS}>Vancouver Canucks</option>
-            <option value={this.KNIGHTS}>Vegas Golden Knights</option>
-            <option value={this.CAPITALS}>Washington Capitals</option>
-            <option value={this.JETS}>Winnipeg Jets</option>
-          </select>
-
-          &nbsp;
-          <label for="date">Game Date: </label>
-          <input type="date" id="date"/>
-
-          &nbsp;
-          <button onClick={this.fetchData}>Should I Watch?</button>
-        </div>
-        <div className="columnSection resultsArea">
-          {
-            this.state.worthWatching != null && this.state.error == null &&
-            <div className={this.state.worthWatching ? "resultYes" : "resultNo"}>
-              {this.state.worthWatching ? "YES" : "NO"}
+      <div className="outerArea">
+        <div className="App">
+          <div className="upperHalf">
+            <div className="headerSection">
+              <h1>Should I Watch?</h1>
+              <h3>Quickly find out if a recorded NHL game is worth watching</h3>
             </div>
-          }
-          {
-            this.state.error != null &&
-            <div className="resultError">
-              {this.state.error}
+            <div className="columnSection gameOptions">
+              <label for="teamId">Team: </label>
+              <select id="teamId" onChange={this.onTeamChange} value={this.state.initialSelectedTeam}>
+                <option value={this.DUCKS}>Anaheim Ducks</option>
+                <option value={this.COYOTES}>Arizona Coyotes</option>
+                <option value={this.BRUINS}>Boston Bruins</option>
+                <option value={this.SABRES}>Buffalo Sabres</option>
+                <option value={this.FLAMES}>Calgary Flames</option>
+                <option value={this.HURRICANES}>Carolina Hurricanes</option>
+                <option value={this.BLACKHAWKS}>Chicago Blackhawks</option>
+                <option value={this.AVALANCHE}>Colorado Avalanche</option>
+                <option value={this.BLUEJACKETS}>Columbus Blue Jackets</option>
+                <option value={this.STARS}>Dallas Stars</option>
+                <option value={this.REDWINGS}>Detroit Red Wings</option>
+                <option value={this.OILERS}>Edmonton Oilers</option>
+                <option value={this.PANTHERS}>Florida Panthers</option>
+                <option value={this.KINGS}>Los Angeles Kings</option>
+                <option value={this.WILD}>Minnesota Wild</option>
+                <option value={this.CANADIENS}>Montreal Canadiens</option>
+                <option value={this.PREDATORS}>Nashville Predators</option>
+                <option value={this.DEVILS}>New Jersey Devils</option>
+                <option value={this.ISLANDERS}>New York Islanders</option>
+                <option value={this.RANGERS}>New York Rangers</option>
+                <option value={this.SENATORS}>Ottawa Senators</option>
+                <option value={this.FLYERS}>Philadelphia Flyers</option>
+                <option value={this.PENGUINS}>Pittsburgh Penguins</option>
+                <option value={this.SHARKS}>San Jose Sharks</option>
+                <option value={this.BLUES}>St. Louis Blues</option>
+                <option value={this.LIGHTNING}>Tampa Bay Lightning</option>
+                <option value={this.LEAFS}>Toronto Maple Leafs</option>
+                <option value={this.CANUCKS}>Vancouver Canucks</option>
+                <option value={this.KNIGHTS}>Vegas Golden Knights</option>
+                <option value={this.CAPITALS}>Washington Capitals</option>
+                <option value={this.JETS}>Winnipeg Jets</option>
+              </select>
+
+              &nbsp;
+              <label for="date">Game Date: </label>
+              <input type="date" id="date"/>
+
+              &nbsp;
+              <button onClick={this.fetchData}>Should I Watch?</button>
             </div>
-          }
-          {
-            this.state.error == null && this.state.worthWatching == null &&
-            <div className="resultPlaceholder">&nbsp;</div>
-          }
-        </div>
-  
-        <div className="columnSection metrics">
-          <details>
-            <summary>Adjust Metrics</summary>
-            <label for="marginInp">Losing Margin: </label>
-            <input type="number" id="marginInp" className="numberInput" value={this.state.margin} onChange={this.onMarginChange}/>
+            <div className="columnSection resultsArea">
+              {
+                this.state.worthWatching != null && this.state.error == null &&
+                <div className={this.state.worthWatching ? "resultYes" : "resultNo"}>
+                  {this.state.worthWatching ? "YES" : "NO"}
+                </div>
+              }
+              {
+                this.state.error != null &&
+                <div className="resultError">
+                  {this.state.error}
+                </div>
+              }
+              {
+                this.state.error == null && this.state.worthWatching == null &&
+                <div className="resultPlaceholder">&nbsp;</div>
+              }
+            </div>
+      
+            <div className="columnSection metrics">
+              <details>
+                <summary>Adjust Metrics</summary>
+                <label for="marginInp">Losing Margin: </label>
+                <input type="number" id="marginInp" className="numberInput" value={this.state.margin} onChange={this.onMarginChange}/>
 
-            &nbsp;
-            <label for="randomPercent">Random Percentage: </label>
-            <input type="number" id="randomPercent" className="numberInput" value={this.state.percentage} onChange={this.onPercentChange}/>
+                &nbsp;
+                <label for="randomPercent">Random Percentage: </label>
+                <input type="number" id="randomPercent" className="numberInput" value={this.state.percentage} onChange={this.onPercentChange}/>
 
-            &nbsp;
-            <label for="maxWinDifferential">Max Win Differential: </label>
-            <input type="number" id="maxWinDifferential" className="numberInput" value={this.state.maxWinDifferential} onChange={this.onMaxWinChange}/>
-          </details>
+                &nbsp;
+                <label for="maxWinDifferential">Max Win Differential: </label>
+                <input type="number" id="maxWinDifferential" className="numberInput" value={this.state.maxWinDifferential} onChange={this.onMaxWinChange}/>
+              </details>
+            </div>
+          </div>
         </div>
-        
       </div>
     )
   }

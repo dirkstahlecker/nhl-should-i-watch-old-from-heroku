@@ -1,20 +1,32 @@
 body {
-  background-color: #FFF;
+  background-color: #e6e8f5;
   text-align: center;
+}
+
+h1 {
+  color: #000;
+}
+
+.outerArea {
+  width: 100%;
+  align-items: center;
 }
 
 .headerSection
 {
-  background-color: #e9ecef;
+  /*background-color: #e9ecef;*/
+  color: #8b8b8b;
   width: 100%;
 }
 
 .App {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   align-items: center;
   margin: 2em;
   white-space: pre;
+
+
 
   font-size: 18px;
   /*font-family: "Courier New", monospace;*/
@@ -29,12 +41,21 @@ body {
   width: 100%;
 }
 
+.upperHalf {
+  width: fit-content;
+}
+
 .metrics {
+  padding-top: 30px;
+  text-align: left;
+}
+
+/*.metrics {
    position: absolute;
    bottom: 0;
    width: 100%;
    height: 120px;
-}
+}*/
 
 button:hover {
   /*background-color: rgb(255, 235, 59);*/
@@ -70,7 +91,9 @@ button:active {
 
 details {
   outline: none;
-  background-color: #e9ecef;
+  /*background-color: #e9ecef;*/
+  /*width: fit-content;*/
+
 }
 
 summary {
