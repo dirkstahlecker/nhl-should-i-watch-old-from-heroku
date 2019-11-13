@@ -473,16 +473,16 @@ class App extends Component
             <div className="columnSection metrics">
               <details>
                 <summary>Adjust Metrics</summary>
-                <label for="marginInp">Losing Margin: </label>
+                <label for="marginInp" title="Number of goals your team can lose by and still return YES">Losing Margin: </label>
                 <input type="number" id="marginInp" className="numberInput" value={this.state.margin} onChange={this.onMarginChange}/>
 
                 &nbsp;
-                <label for="randomPercent">Random Percentage: </label>
-                <input type="number" id="randomPercent" className="numberInput" value={this.state.percentage} onChange={this.onPercentChange}/>
+                <label for="maxWinDifferential" title="Number of goals your team can win by and still return YES">Max Win Differential: </label>
+                <input type="number" id="maxWinDifferential" className="numberInput" value={this.state.maxWinDifferential} onChange={this.onMaxWinChange}/>
 
                 &nbsp;
-                <label for="maxWinDifferential">Max Win Differential: </label>
-                <input type="number" id="maxWinDifferential" className="numberInput" value={this.state.maxWinDifferential} onChange={this.onMaxWinChange}/>
+                <label for="randomPercent" title="The probability of returning YES when it would otherwise return NO">Random Percentage: </label>
+                <input type="number" id="randomPercent" className="numberInput" value={this.state.percentage} onChange={this.onPercentChange}/>
               </details>
             </div>
           </div>
