@@ -485,6 +485,9 @@ class App extends Component
                 <input type="number" id="randomPercent" className="numberInput" value={this.state.percentage} onChange={this.onPercentChange}/>
               </details>
             </div>
+            <div className="footer">
+              Questions or feedback? Email nhlshouldiwatchapp@gmail.com
+            </div>
           </div>
         </div>
       </div>
